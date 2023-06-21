@@ -1,32 +1,29 @@
 const header = document.getElementById("header")
 
 function submitForm(event) {
-    event.preventDefault();
+    const name = document.getElementById("nameSignUp").value;
+    const email = document.getElementById("address").value;
+    console.log(name,email)
 
-    var nameInput = document.getElementById('name');
-    var emailInput = document.getElementById('address');
-
-    var name = nameInput.value;
-    var email = emailInput.value;
-
-    var data = {
-      name: name,
-      email: email
-    };
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://ki0m5rtgz5.execute-api.us-east-1.amazonaws.com/appendEmail');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        console.log('Request sent successfully!');
-        // You can perform additional actions here after the request is successful
-      } else {
-        console.log('Request failed. Status:', xhr.status);
-        // You can handle the error case here
-      }
-    };
-    xhr.send(JSON.stringify(data));
+    fetch('https://j5qv4hfkvd.execute-api.us-east-1.amazonaws.com/staging/addemail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          name: name
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Response:', data);
+          // Handle the response data here
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // Handle any errors that occur during the request
+        });
   }
 
 window.addEventListener("scroll", function () {
