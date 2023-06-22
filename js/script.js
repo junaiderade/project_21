@@ -21,10 +21,13 @@ function submitTicket(event) {
         .then(response => response.json())
         .then(data => {
           console.log('Response:', data);
+          alert('Ticket submitted successfully!');
+
           // Handle the response data here
         })
         .catch(error => {
           console.error('Error:', error);
+          alert('Error occurred while submitting the ticket.');
           // Handle any errors that occur during the request
         });
   }
@@ -49,10 +52,14 @@ function submitForm(event) {
         .then(response => response.json())
         .then(data => {
           console.log('Response:', data);
+          alert('Thank you for joining!');
+
           // Handle the response data here
         })
         .catch(error => {
           console.error('Error:', error);
+          alert('Error. Please email junaid98m@gmail.com to join');
+
           // Handle any errors that occur during the request
         });
   }
