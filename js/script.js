@@ -1,13 +1,12 @@
 const header = document.getElementById("header")
 
-function submitTicket(event) {
-    console.log('submit ticket triggered')
+async function submitTicket(event) {
+    event.preventDefault();//stop page from refresh
     const name = document.getElementById("nameSupport").value;
     const email = document.getElementById("emailSupport").value;
     const message = document.getElementById("message").value;
     console.log(name,email,message)
-
-    fetch('https://zkzs6x59ha.execute-api.us-east-1.amazonaws.com/staging/addsupporticket', { //you mispelled this but you gotta roll with it
+    const res = await fetch('https://zkzs6x59ha.execute-api.us-east-1.amazonaws.com/staging/addsupporticket', { //you mispelled this but you gotta roll with it
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,28 +17,16 @@ function submitTicket(event) {
           message:message
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Response:', data);
-          alert('Ticket submitted successfully!');
-
-          // Handle the response data here
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Error occurred while submitting the ticket.');
-          // Handle any errors that occur during the request
-        });
+    console.log(res.json())
+    document.getElementById("thankYouMessageTicket").classList.remove("hidden");
   }
 
-function submitForm(event) {
-    console.log('add email triggered')
-
+async function submitForm(event) {
+    event.preventDefault();//stop page from refresh
     const name = document.getElementById("nameSignUp").value;
     const email = document.getElementById("address").value;
     console.log(name,email)
-
-    fetch('https://j5qv4hfkvd.execute-api.us-east-1.amazonaws.com/staging/addemail', {
+    const res = await fetch('https://j5qv4hfkvd.execute-api.us-east-1.amazonaws.com/staging/addemail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,19 +36,8 @@ function submitForm(event) {
           name: name
         })
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Response:', data);
-          alert('Thank you for joining!');
-
-          // Handle the response data here
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Error. Please email junaid98m@gmail.com to join');
-
-          // Handle any errors that occur during the request
-        });
+    console.log(res.json())
+    document.getElementById("thankYouMessage").classList.remove("hidden");
   }
 
 window.addEventListener("scroll", function () {
